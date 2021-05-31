@@ -23,7 +23,7 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             //business codes
-            if (product.ProductName.Length>2)
+            if (product.ProductName.Length<2)
             {
                 //magic string ("") yazılması doğru değildir
                 return new ErrorResult(Messages.ProductNameInvalid);
@@ -36,7 +36,7 @@ namespace Business.Concrete
         public IDataResult<List<Product>> GetAll()
         {
             //iş kodları yazılıyor buraya
-            if (DateTime.Now.Hour==23)
+            if (DateTime.Now.Hour==1)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MeintenanceTime);//sadece mesaj döndürüyoruz
             }
