@@ -1,10 +1,14 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,14 +24,12 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]//aşagıdaki metodu doğrula ProductValidator ü kullanarak demek
         public IResult Add(Product product)
         {
             //business codes
-            if (product.ProductName.Length<2)
-            {
-                //magic string ("") yazılması doğru değildir
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            //validation (Burada product ın yapısal uyumunu kontrol için yazılan kodlar doğrulama oluyor)ama örneğin bir kişi kredi başvurusu yapıyor ve o kişinin başvuru nitelikleri karşılanıyor mu diye kontrol edilmesi ve verilip verilmemesi validation değildir
+
             _productDal.Add(product);
 
             return new SuccessResult(Messages.ProductAdded);
