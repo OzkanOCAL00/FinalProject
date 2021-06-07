@@ -17,6 +17,10 @@ namespace Business.Abstract
         IDataResult<List<ProductDetailDto>> GetProductDetails();
         IDataResult<Product> GetById(int ProductId);//sadece ürün ile ilgili bilgiler için yazılır
         IResult Add(Product product);//burda  yok o yüzden IDataResult olmaz
-        
+        IResult Update(Product product);
+
+
+        IResult AddTransactionalTest(Product product);
+
     }
 }
